@@ -16,6 +16,29 @@ namespace BusTicketBookingSystem.Controllers
             context = new OperationDataContext();
         }
 
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(UserRoleModel model)
+        {
+            var q = from p in context.UserRoles
+                    where p.Username == model.Username && p.Password == model.Password
+                    select p;
+
+            if (q.Any())
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
         // GET: UserRole
         public ActionResult Index()
         {
