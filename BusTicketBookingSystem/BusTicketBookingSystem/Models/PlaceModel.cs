@@ -5,10 +5,9 @@ using System.Web;
 
 namespace BusTicketBookingSystem.Models
 {
-    public class RouteModel
+    public class PlaceModel
     {
         public int Id { get; set; }
-        public int OriginID { get; set; }
-        public int DestinationID { get; set; }
+        public string Name { get; set; }
     }
 }

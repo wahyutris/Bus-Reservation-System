@@ -1,25 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Bus-Reservation-System" Class="OperationDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=Bus-Reservation-System;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="Bus_Reservation_SystemConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Route" Member="Routes">
-    <Type Name="Route">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Origin" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Destination" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="Route_BusCar" Member="BusCars" ThisKey="Id" OtherKey="RouteID" Type="BusCar" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Bus" Member="BusCars">
-    <Type Name="BusCar">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
-      <Column Name="RouteID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="AC" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Fare" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="DepartureTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
-      <Association Name="BusCar_Ticket" Member="Tickets" ThisKey="Id" OtherKey="BusID" Type="Ticket" />
-      <Association Name="Route_BusCar" Member="Route" ThisKey="RouteID" OtherKey="Id" Type="Route" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Roles" Member="Roles">
     <Type Name="Role">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -47,6 +27,36 @@
       <Column Name="PhoneNumber" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Association Name="Passenger_Ticket" Member="Tickets" ThisKey="Id" OtherKey="PassengerID" Type="Ticket" />
       <Association Name="UserRole_Passenger" Member="UserRole" ThisKey="UserID" OtherKey="Id" Type="UserRole" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.City" Member="Places">
+    <Type Name="Place">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="City_Route" Member="Routes" ThisKey="Id" OtherKey="DestinationID" Type="Route" />
+      <Association Name="City_Route1" Member="Routes1" ThisKey="Id" OtherKey="OriginID" Type="Route" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Route" Member="Routes">
+    <Type Name="Route">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OriginID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DestinationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Route_BusCar" Member="BusCars" ThisKey="Id" OtherKey="RouteID" Type="BusCar" />
+      <Association Name="City_Route" Member="City" ThisKey="DestinationID" OtherKey="Id" Type="Place" IsForeignKey="true" />
+      <Association Name="City_Route1" Member="Place" ThisKey="OriginID" OtherKey="Id" Type="Place" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BusCar" Member="BusCars">
+    <Type Name="BusCar">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="RouteID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AC" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Fare" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DepartureTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Association Name="BusCar_Ticket" Member="Tickets" ThisKey="Id" OtherKey="BusID" Type="Ticket" />
+      <Association Name="Route_BusCar" Member="Route" ThisKey="RouteID" OtherKey="Id" Type="Route" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.Ticket" Member="Tickets">

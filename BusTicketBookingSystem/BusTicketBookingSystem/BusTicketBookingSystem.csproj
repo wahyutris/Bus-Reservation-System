@@ -143,12 +143,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PlaceController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserRoleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BusCarModel.cs" />
+    <Compile Include="Models\PlaceModel.cs" />
+    <Compile Include="Models\Operation.cs">
+      <DependentUpon>Operation.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Operation.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -210,6 +215,9 @@
     <Content Include="Views\UserRole\Edit.cshtml" />
     <Content Include="Views\UserRole\Delete.cshtml" />
     <Content Include="Views\UserRole\Login.cshtml" />
+    <Content Include="Views\Place\Index.cshtml" />
+    <Content Include="Views\Place\Create.cshtml" />
+    <Content Include="Views\Place\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
