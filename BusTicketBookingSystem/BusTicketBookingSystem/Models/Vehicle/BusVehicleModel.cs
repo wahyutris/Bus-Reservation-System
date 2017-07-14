@@ -6,7 +6,7 @@ using System.Web;
 
 namespace BusTicketBookingSystem.Models
 {
-    public class BusCarModel
+    public class BusVehicleModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

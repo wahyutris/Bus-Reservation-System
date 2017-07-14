@@ -143,14 +143,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PlaceController.cs" />
-    <Compile Include="Controllers\RoleController.cs" />
-    <Compile Include="Controllers\UserRoleController.cs" />
+    <Compile Include="Controllers\Vehicle\PlaceController.cs" />
+    <Compile Include="Controllers\People\RoleController.cs" />
+    <Compile Include="Controllers\People\UserRoleController.cs" />
+    <Compile Include="Controllers\Vehicle\RouteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BusCarModel.cs" />
-    <Compile Include="Models\PlaceModel.cs" />
+    <Compile Include="Models\Vehicle\BusVehicleModel.cs" />
+    <Compile Include="Models\Vehicle\PlaceModel.cs" />
     <Compile Include="Models\Operation.cs">
       <DependentUpon>Operation.dbml</DependentUpon>
     </Compile>
@@ -159,9 +160,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Operation.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\RoleModel.cs" />
-    <Compile Include="Models\RouteModel.cs" />
-    <Compile Include="Models\UserRoleModel.cs" />
+    <Compile Include="Models\People\RoleModel.cs" />
+    <Compile Include="Models\Vehicle\RouteModel.cs" />
+    <Compile Include="Models\People\UserRoleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -218,6 +219,9 @@
     <Content Include="Views\Place\Index.cshtml" />
     <Content Include="Views\Place\Create.cshtml" />
     <Content Include="Views\Place\Edit.cshtml" />
+    <Content Include="Views\Route\Index.cshtml" />
+    <Content Include="Views\Route\Create.cshtml" />
+    <Content Include="Views\Route\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

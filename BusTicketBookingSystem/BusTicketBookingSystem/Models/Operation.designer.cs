@@ -39,18 +39,18 @@ namespace BusTicketBookingSystem.Models
     partial void InsertPassenger(Passenger instance);
     partial void UpdatePassenger(Passenger instance);
     partial void DeletePassenger(Passenger instance);
-    partial void InsertPlace(Place instance);
-    partial void UpdatePlace(Place instance);
-    partial void DeletePlace(Place instance);
     partial void InsertRoute(Route instance);
     partial void UpdateRoute(Route instance);
     partial void DeleteRoute(Route instance);
-    partial void InsertBusCar(BusCar instance);
-    partial void UpdateBusCar(BusCar instance);
-    partial void DeleteBusCar(BusCar instance);
     partial void InsertTicket(Ticket instance);
     partial void UpdateTicket(Ticket instance);
     partial void DeleteTicket(Ticket instance);
+    partial void InsertBusVehicle(BusVehicle instance);
+    partial void UpdateBusVehicle(BusVehicle instance);
+    partial void DeleteBusVehicle(BusVehicle instance);
+    partial void InsertPlace(Place instance);
+    partial void UpdatePlace(Place instance);
+    partial void DeletePlace(Place instance);
     #endregion
 		
 		public OperationDataContext() : 
@@ -107,14 +107,6 @@ namespace BusTicketBookingSystem.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Place> Places
-		{
-			get
-			{
-				return this.GetTable<Place>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Route> Routes
 		{
 			get
@@ -123,19 +115,27 @@ namespace BusTicketBookingSystem.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<BusCar> BusCars
-		{
-			get
-			{
-				return this.GetTable<BusCar>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Ticket> Tickets
 		{
 			get
 			{
 				return this.GetTable<Ticket>();
+			}
+		}
+		
+		public System.Data.Linq.Table<BusVehicle> BusVehicles
+		{
+			get
+			{
+				return this.GetTable<BusVehicle>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Place> Places
+		{
+			get
+			{
+				return this.GetTable<Place>();
 			}
 		}
 	}
@@ -708,148 +708,6 @@ namespace BusTicketBookingSystem.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.City")]
-	public partial class Place : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private EntitySet<Route> _Routes;
-		
-		private EntitySet<Route> _Routes1;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    #endregion
-		
-		public Place()
-		{
-			this._Routes = new EntitySet<Route>(new Action<Route>(this.attach_Routes), new Action<Route>(this.detach_Routes));
-			this._Routes1 = new EntitySet<Route>(new Action<Route>(this.attach_Routes1), new Action<Route>(this.detach_Routes1));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="City_Route", Storage="_Routes", ThisKey="Id", OtherKey="DestinationID")]
-		public EntitySet<Route> Routes
-		{
-			get
-			{
-				return this._Routes;
-			}
-			set
-			{
-				this._Routes.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="City_Route1", Storage="_Routes1", ThisKey="Id", OtherKey="OriginID")]
-		public EntitySet<Route> Routes1
-		{
-			get
-			{
-				return this._Routes1;
-			}
-			set
-			{
-				this._Routes1.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Routes(Route entity)
-		{
-			this.SendPropertyChanging();
-			entity.City = this;
-		}
-		
-		private void detach_Routes(Route entity)
-		{
-			this.SendPropertyChanging();
-			entity.City = null;
-		}
-		
-		private void attach_Routes1(Route entity)
-		{
-			this.SendPropertyChanging();
-			entity.Place = this;
-		}
-		
-		private void detach_Routes1(Route entity)
-		{
-			this.SendPropertyChanging();
-			entity.Place = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Route")]
 	public partial class Route : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -858,15 +716,11 @@ namespace BusTicketBookingSystem.Models
 		
 		private int _Id;
 		
-		private int _OriginID;
+		private string _Origin;
 		
-		private int _DestinationID;
+		private string _Destination;
 		
-		private EntitySet<BusCar> _BusCars;
-		
-		private EntityRef<Place> _City;
-		
-		private EntityRef<Place> _Place;
+		private EntitySet<BusVehicle> _BusVehicles;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -874,17 +728,15 @@ namespace BusTicketBookingSystem.Models
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnOriginIDChanging(int value);
-    partial void OnOriginIDChanged();
-    partial void OnDestinationIDChanging(int value);
-    partial void OnDestinationIDChanged();
+    partial void OnOriginChanging(string value);
+    partial void OnOriginChanged();
+    partial void OnDestinationChanging(string value);
+    partial void OnDestinationChanged();
     #endregion
 		
 		public Route()
 		{
-			this._BusCars = new EntitySet<BusCar>(new Action<BusCar>(this.attach_BusCars), new Action<BusCar>(this.detach_BusCars));
-			this._City = default(EntityRef<Place>);
-			this._Place = default(EntityRef<Place>);
+			this._BusVehicles = new EntitySet<BusVehicle>(new Action<BusVehicle>(this.attach_BusVehicles), new Action<BusVehicle>(this.detach_BusVehicles));
 			OnCreated();
 		}
 		
@@ -908,132 +760,56 @@ namespace BusTicketBookingSystem.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginID", DbType="Int NOT NULL")]
-		public int OriginID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Origin", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Origin
 		{
 			get
 			{
-				return this._OriginID;
+				return this._Origin;
 			}
 			set
 			{
-				if ((this._OriginID != value))
+				if ((this._Origin != value))
 				{
-					if (this._Place.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnOriginIDChanging(value);
+					this.OnOriginChanging(value);
 					this.SendPropertyChanging();
-					this._OriginID = value;
-					this.SendPropertyChanged("OriginID");
-					this.OnOriginIDChanged();
+					this._Origin = value;
+					this.SendPropertyChanged("Origin");
+					this.OnOriginChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DestinationID", DbType="Int NOT NULL")]
-		public int DestinationID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Destination", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Destination
 		{
 			get
 			{
-				return this._DestinationID;
+				return this._Destination;
 			}
 			set
 			{
-				if ((this._DestinationID != value))
+				if ((this._Destination != value))
 				{
-					if (this._City.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnDestinationIDChanging(value);
+					this.OnDestinationChanging(value);
 					this.SendPropertyChanging();
-					this._DestinationID = value;
-					this.SendPropertyChanged("DestinationID");
-					this.OnDestinationIDChanged();
+					this._Destination = value;
+					this.SendPropertyChanged("Destination");
+					this.OnDestinationChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Route_BusCar", Storage="_BusCars", ThisKey="Id", OtherKey="RouteID")]
-		public EntitySet<BusCar> BusCars
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Route_BusVehicle", Storage="_BusVehicles", ThisKey="Id", OtherKey="RouteID")]
+		public EntitySet<BusVehicle> BusVehicles
 		{
 			get
 			{
-				return this._BusCars;
+				return this._BusVehicles;
 			}
 			set
 			{
-				this._BusCars.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="City_Route", Storage="_City", ThisKey="DestinationID", OtherKey="Id", IsForeignKey=true)]
-		public Place City
-		{
-			get
-			{
-				return this._City.Entity;
-			}
-			set
-			{
-				Place previousValue = this._City.Entity;
-				if (((previousValue != value) 
-							|| (this._City.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._City.Entity = null;
-						previousValue.Routes.Remove(this);
-					}
-					this._City.Entity = value;
-					if ((value != null))
-					{
-						value.Routes.Add(this);
-						this._DestinationID = value.Id;
-					}
-					else
-					{
-						this._DestinationID = default(int);
-					}
-					this.SendPropertyChanged("City");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="City_Route1", Storage="_Place", ThisKey="OriginID", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Place Place
-		{
-			get
-			{
-				return this._Place.Entity;
-			}
-			set
-			{
-				Place previousValue = this._Place.Entity;
-				if (((previousValue != value) 
-							|| (this._Place.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Place.Entity = null;
-						previousValue.Routes1.Remove(this);
-					}
-					this._Place.Entity = value;
-					if ((value != null))
-					{
-						value.Routes1.Add(this);
-						this._OriginID = value.Id;
-					}
-					else
-					{
-						this._OriginID = default(int);
-					}
-					this.SendPropertyChanged("Place");
-				}
+				this._BusVehicles.Assign(value);
 			}
 		}
 		
@@ -1057,21 +833,285 @@ namespace BusTicketBookingSystem.Models
 			}
 		}
 		
-		private void attach_BusCars(BusCar entity)
+		private void attach_BusVehicles(BusVehicle entity)
 		{
 			this.SendPropertyChanging();
 			entity.Route = this;
 		}
 		
-		private void detach_BusCars(BusCar entity)
+		private void detach_BusVehicles(BusVehicle entity)
 		{
 			this.SendPropertyChanging();
 			entity.Route = null;
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BusCar")]
-	public partial class BusCar : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Ticket")]
+	public partial class Ticket : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Seat;
+		
+		private System.Data.Linq.Binary _TimeStamp;
+		
+		private int _PassengerID;
+		
+		private int _BusID;
+		
+		private System.DateTime _Date;
+		
+		private EntityRef<Passenger> _Passenger;
+		
+		private EntityRef<BusVehicle> _BusVehicle;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnSeatChanging(string value);
+    partial void OnSeatChanged();
+    partial void OnTimeStampChanging(System.Data.Linq.Binary value);
+    partial void OnTimeStampChanged();
+    partial void OnPassengerIDChanging(int value);
+    partial void OnPassengerIDChanged();
+    partial void OnBusIDChanging(int value);
+    partial void OnBusIDChanged();
+    partial void OnDateChanging(System.DateTime value);
+    partial void OnDateChanged();
+    #endregion
+		
+		public Ticket()
+		{
+			this._Passenger = default(EntityRef<Passenger>);
+			this._BusVehicle = default(EntityRef<BusVehicle>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Seat", DbType="VarChar(3) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string Seat
+		{
+			get
+			{
+				return this._Seat;
+			}
+			set
+			{
+				if ((this._Seat != value))
+				{
+					this.OnSeatChanging(value);
+					this.SendPropertyChanging();
+					this._Seat = value;
+					this.SendPropertyChanged("Seat");
+					this.OnSeatChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeStamp", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary TimeStamp
+		{
+			get
+			{
+				return this._TimeStamp;
+			}
+			set
+			{
+				if ((this._TimeStamp != value))
+				{
+					this.OnTimeStampChanging(value);
+					this.SendPropertyChanging();
+					this._TimeStamp = value;
+					this.SendPropertyChanged("TimeStamp");
+					this.OnTimeStampChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PassengerID", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int PassengerID
+		{
+			get
+			{
+				return this._PassengerID;
+			}
+			set
+			{
+				if ((this._PassengerID != value))
+				{
+					if (this._Passenger.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPassengerIDChanging(value);
+					this.SendPropertyChanging();
+					this._PassengerID = value;
+					this.SendPropertyChanged("PassengerID");
+					this.OnPassengerIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusID", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int BusID
+		{
+			get
+			{
+				return this._BusID;
+			}
+			set
+			{
+				if ((this._BusID != value))
+				{
+					if (this._BusVehicle.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnBusIDChanging(value);
+					this.SendPropertyChanging();
+					this._BusID = value;
+					this.SendPropertyChanged("BusID");
+					this.OnBusIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="Date NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public System.DateTime Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnDateChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Passenger_Ticket", Storage="_Passenger", ThisKey="PassengerID", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Passenger Passenger
+		{
+			get
+			{
+				return this._Passenger.Entity;
+			}
+			set
+			{
+				Passenger previousValue = this._Passenger.Entity;
+				if (((previousValue != value) 
+							|| (this._Passenger.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Passenger.Entity = null;
+						previousValue.Tickets.Remove(this);
+					}
+					this._Passenger.Entity = value;
+					if ((value != null))
+					{
+						value.Tickets.Add(this);
+						this._PassengerID = value.Id;
+					}
+					else
+					{
+						this._PassengerID = default(int);
+					}
+					this.SendPropertyChanged("Passenger");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BusVehicle_Ticket", Storage="_BusVehicle", ThisKey="BusID", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public BusVehicle BusVehicle
+		{
+			get
+			{
+				return this._BusVehicle.Entity;
+			}
+			set
+			{
+				BusVehicle previousValue = this._BusVehicle.Entity;
+				if (((previousValue != value) 
+							|| (this._BusVehicle.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._BusVehicle.Entity = null;
+						previousValue.Tickets.Remove(this);
+					}
+					this._BusVehicle.Entity = value;
+					if ((value != null))
+					{
+						value.Tickets.Add(this);
+						this._BusID = value.Id;
+					}
+					else
+					{
+						this._BusID = default(int);
+					}
+					this.SendPropertyChanged("BusVehicle");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BusVehicle")]
+	public partial class BusVehicle : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -1110,7 +1150,7 @@ namespace BusTicketBookingSystem.Models
     partial void OnDepartureTimeChanged();
     #endregion
 		
-		public BusCar()
+		public BusVehicle()
 		{
 			this._Tickets = new EntitySet<Ticket>(new Action<Ticket>(this.attach_Tickets), new Action<Ticket>(this.detach_Tickets));
 			this._Route = default(EntityRef<Route>);
@@ -1241,7 +1281,7 @@ namespace BusTicketBookingSystem.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BusCar_Ticket", Storage="_Tickets", ThisKey="Id", OtherKey="BusID")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BusVehicle_Ticket", Storage="_Tickets", ThisKey="Id", OtherKey="BusID")]
 		public EntitySet<Ticket> Tickets
 		{
 			get
@@ -1254,7 +1294,7 @@ namespace BusTicketBookingSystem.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Route_BusCar", Storage="_Route", ThisKey="RouteID", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Route_BusVehicle", Storage="_Route", ThisKey="RouteID", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Route Route
 		{
 			get
@@ -1271,12 +1311,12 @@ namespace BusTicketBookingSystem.Models
 					if ((previousValue != null))
 					{
 						this._Route.Entity = null;
-						previousValue.BusCars.Remove(this);
+						previousValue.BusVehicles.Remove(this);
 					}
 					this._Route.Entity = value;
 					if ((value != null))
 					{
-						value.BusCars.Add(this);
+						value.BusVehicles.Add(this);
 						this._RouteID = value.Id;
 					}
 					else
@@ -1311,37 +1351,25 @@ namespace BusTicketBookingSystem.Models
 		private void attach_Tickets(Ticket entity)
 		{
 			this.SendPropertyChanging();
-			entity.BusCar = this;
+			entity.BusVehicle = this;
 		}
 		
 		private void detach_Tickets(Ticket entity)
 		{
 			this.SendPropertyChanging();
-			entity.BusCar = null;
+			entity.BusVehicle = null;
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Ticket")]
-	public partial class Ticket : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Place")]
+	public partial class Place : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _Id;
 		
-		private string _Seat;
-		
-		private System.Data.Linq.Binary _TimeStamp;
-		
-		private int _PassengerID;
-		
-		private int _BusID;
-		
-		private System.DateTime _Date;
-		
-		private EntityRef<BusCar> _BusCar;
-		
-		private EntityRef<Passenger> _Passenger;
+		private string _Name;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1349,26 +1377,16 @@ namespace BusTicketBookingSystem.Models
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnSeatChanging(string value);
-    partial void OnSeatChanged();
-    partial void OnTimeStampChanging(System.Data.Linq.Binary value);
-    partial void OnTimeStampChanged();
-    partial void OnPassengerIDChanging(int value);
-    partial void OnPassengerIDChanged();
-    partial void OnBusIDChanging(int value);
-    partial void OnBusIDChanged();
-    partial void OnDateChanging(System.DateTime value);
-    partial void OnDateChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
     #endregion
 		
-		public Ticket()
+		public Place()
 		{
-			this._BusCar = default(EntityRef<BusCar>);
-			this._Passenger = default(EntityRef<Passenger>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int Id
 		{
 			get
@@ -1388,178 +1406,22 @@ namespace BusTicketBookingSystem.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Seat", DbType="VarChar(3) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string Seat
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
 		{
 			get
 			{
-				return this._Seat;
+				return this._Name;
 			}
 			set
 			{
-				if ((this._Seat != value))
+				if ((this._Name != value))
 				{
-					this.OnSeatChanging(value);
+					this.OnNameChanging(value);
 					this.SendPropertyChanging();
-					this._Seat = value;
-					this.SendPropertyChanged("Seat");
-					this.OnSeatChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeStamp", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		public System.Data.Linq.Binary TimeStamp
-		{
-			get
-			{
-				return this._TimeStamp;
-			}
-			set
-			{
-				if ((this._TimeStamp != value))
-				{
-					this.OnTimeStampChanging(value);
-					this.SendPropertyChanging();
-					this._TimeStamp = value;
-					this.SendPropertyChanged("TimeStamp");
-					this.OnTimeStampChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PassengerID", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		public int PassengerID
-		{
-			get
-			{
-				return this._PassengerID;
-			}
-			set
-			{
-				if ((this._PassengerID != value))
-				{
-					if (this._Passenger.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnPassengerIDChanging(value);
-					this.SendPropertyChanging();
-					this._PassengerID = value;
-					this.SendPropertyChanged("PassengerID");
-					this.OnPassengerIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusID", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		public int BusID
-		{
-			get
-			{
-				return this._BusID;
-			}
-			set
-			{
-				if ((this._BusID != value))
-				{
-					if (this._BusCar.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnBusIDChanging(value);
-					this.SendPropertyChanging();
-					this._BusID = value;
-					this.SendPropertyChanged("BusID");
-					this.OnBusIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="Date NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		public System.DateTime Date
-		{
-			get
-			{
-				return this._Date;
-			}
-			set
-			{
-				if ((this._Date != value))
-				{
-					this.OnDateChanging(value);
-					this.SendPropertyChanging();
-					this._Date = value;
-					this.SendPropertyChanged("Date");
-					this.OnDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BusCar_Ticket", Storage="_BusCar", ThisKey="BusID", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public BusCar BusCar
-		{
-			get
-			{
-				return this._BusCar.Entity;
-			}
-			set
-			{
-				BusCar previousValue = this._BusCar.Entity;
-				if (((previousValue != value) 
-							|| (this._BusCar.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._BusCar.Entity = null;
-						previousValue.Tickets.Remove(this);
-					}
-					this._BusCar.Entity = value;
-					if ((value != null))
-					{
-						value.Tickets.Add(this);
-						this._BusID = value.Id;
-					}
-					else
-					{
-						this._BusID = default(int);
-					}
-					this.SendPropertyChanged("BusCar");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Passenger_Ticket", Storage="_Passenger", ThisKey="PassengerID", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Passenger Passenger
-		{
-			get
-			{
-				return this._Passenger.Entity;
-			}
-			set
-			{
-				Passenger previousValue = this._Passenger.Entity;
-				if (((previousValue != value) 
-							|| (this._Passenger.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Passenger.Entity = null;
-						previousValue.Tickets.Remove(this);
-					}
-					this._Passenger.Entity = value;
-					if ((value != null))
-					{
-						value.Tickets.Add(this);
-						this._PassengerID = value.Id;
-					}
-					else
-					{
-						this._PassengerID = default(int);
-					}
-					this.SendPropertyChanged("Passenger");
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
 				}
 			}
 		}
