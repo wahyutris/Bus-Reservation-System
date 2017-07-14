@@ -23,8 +23,7 @@ namespace BusTicketBookingSystem.Controllers.Vehicle
             List<RouteModel> routeList = new List<RouteModel>();
 
             // perform linq operation
-            var query = from route in context.Routes
-                        //where (route.OriginID == origin.Id) && (route.DestinationID == destination.Id) && (route.OriginID != route.DestinationID)
+            var query = from route in context.Routes                        
                         select new RouteModel
                         {
                             Id = route.Id,

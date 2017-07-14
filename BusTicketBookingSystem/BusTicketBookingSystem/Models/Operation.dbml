@@ -37,6 +37,12 @@
       <Association Name="Route_BusVehicle" Member="BusVehicles" ThisKey="Id" OtherKey="RouteID" Type="BusVehicle" />
     </Type>
   </Table>
+  <Table Name="dbo.Place" Member="Places">
+    <Type Name="Place">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Table Name="dbo.Ticket" Member="Tickets">
     <Type Name="Ticket">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -56,15 +62,9 @@
       <Column Name="RouteID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="AC" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Fare" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="DepartureTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="DepartureTime" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
       <Association Name="BusVehicle_Ticket" Member="Tickets" ThisKey="Id" OtherKey="BusID" Type="Ticket" />
       <Association Name="Route_BusVehicle" Member="Route" ThisKey="RouteID" OtherKey="Id" Type="Route" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Place" Member="Places">
-    <Type Name="Place">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

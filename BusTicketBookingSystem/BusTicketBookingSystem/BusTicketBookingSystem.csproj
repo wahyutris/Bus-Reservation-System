@@ -143,6 +143,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Vehicle\BusVehicleController.cs" />
     <Compile Include="Controllers\Vehicle\PlaceController.cs" />
     <Compile Include="Controllers\People\RoleController.cs" />
     <Compile Include="Controllers\People\UserRoleController.cs" />
@@ -222,6 +223,10 @@
     <Content Include="Views\Route\Index.cshtml" />
     <Content Include="Views\Route\Create.cshtml" />
     <Content Include="Views\Route\Edit.cshtml" />
+    <Content Include="Views\BusVehicle\Create.cshtml" />
+    <Content Include="Views\BusVehicle\Index.cshtml" />
+    <Content Include="Views\BusVehicle\Edit.cshtml" />
+    <Content Include="Views\BusVehicle\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

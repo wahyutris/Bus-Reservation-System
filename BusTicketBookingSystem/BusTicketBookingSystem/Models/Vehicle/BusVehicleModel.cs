@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace BusTicketBookingSystem.Models
 {
@@ -14,8 +15,16 @@ namespace BusTicketBookingSystem.Models
         public int Fare { get; set; }
 
         [DisplayName("Departure Time")]
-        public DateTime DepartureTime { get; set; }
+        public string DepartureTime { get; set; }
+        public IEnumerable<SelectListItem> DepartureTimes { get; set; }
 
         public int RouteID { get; set; }
+        public string RouteName { get; set; }
+        // Buat dropdown list yang akan dipake di controller dan view
+        public IEnumerable<SelectListItem> Routes { get; set; }
+        public BusVehicleModel()
+        {
+            Routes = new List<SelectListItem>();
+        }
     }
 }
